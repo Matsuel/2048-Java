@@ -13,15 +13,23 @@ public class Test {
 
         ArrayList<Case> l= new ArrayList<Case>();
 
-        l.add(c3);
-        l.add(c2);
-        l.add(c1);
+        // l.add(c3);
+        // l.add(c2);
+        // l.add(c1);
 
-        for(int i=0;i<13;i++){
+        for(int i=0;i<16;i++){
             l.add(c4);
         }
 
         Board b= new Board(l);
+
+        b.SetCaseAt(c1.GetX(),c1.GetY(), c1);
+        b.SetCaseAt(c2.GetX(),c2.GetY(), c2);
+        b.SetCaseAt(c3.GetX(),c3.GetY(), c3);
+
+        System.out.println(b.toString());
+
+        b.Spawn();
 
         System.out.println(b.toString());
     }
