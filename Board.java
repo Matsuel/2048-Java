@@ -2,77 +2,68 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board extends Case {
-    private ArrayList<Case> Cases;
+    private ArrayList<ArrayList<Case>> Cases;
+    private final int row=4;
+    private final int col=4;
 
-    public Board(ArrayList<Case> cases){
-        this.Cases=cases;
+    public Board(){
+        this.Cases= new ArrayList<ArrayList<Case>>();
     }
 
-    public ArrayList<Case> GetCases(){
+    public Board(ArrayList<ArrayList<Case>> list){
+        this.Cases=list;
+    }
+
+    public ArrayList<ArrayList<Case>> GetCases(){
         return this.Cases;
     }
 
-    public void SetCase(ArrayList<Case> c){
-        this.Cases=c;
+    public void SetCases(ArrayList<ArrayList<Case>> C){
+        this.Cases=C;
     }
 
-    public Case GetCaseAt(int x,int y){
-        int pos=4*x+y;
-        return this.Cases.get(pos);
+    public Case GetCaseAt(int row, int col){
+        return this.Cases.get(row).get(col);
     }
 
-    public void SetCaseAt(int x,int y, Case c){
-        int pos=4*x+y;
-        this.Cases.set(pos, c);
-    }
-
-    public void AddCase(Case c){
-        this.Cases.add(c);
+    public void SetCaseAt(int row, int col, Case c){
+        this.Cases.get(row).set(col, c);
     }
 
     public boolean Win(){
-        for (Case c : this.GetCases()){
-            if (c.GetValue()==2048){
-                return true;
+        for (ArrayList<Case> col: this.GetCases()){
+            for (Case c:col){
+                if (c.GetValue()==2048){
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    // public void MoveRight(){
-    //     for (int i=0; i<this.GetCases().size();i++){
-    //         if (this.GetCases().get(i).GetX()*4+this.GetCases().get(i).GetY()!=3||this.GetCases().get(i).GetX()*4+this.GetCases().get(i).GetY()!=7||this.GetCases().get(i).GetX()*4+this.GetCases().get(i).GetY()!=11||this.GetCases().get(i).GetX()*4+this.GetCases().get(i).GetY()!=15){
-
-    //         }
-    //     }
-    // }
-
     public void Spawn(){
         ArrayList<Integer> v= new ArrayList<Integer>();
         v.add(2);
         v.add(4);
+        Random va= new Random();
+        int val=va.nextInt(1 - 0 + 1) + 0;
         Random r = new Random();
-        int val=r.nextInt(1 - 0 + 1) + 0;
-        int pos=r.nextInt(15 - 0 + 1) +0;
-        int x= pos/4;
-        int y = pos-x;
-        Case c= new Case(x, y, v.get(val));
-        this.SetCaseAt(x, y, c);
+        int row=r.nextInt(3 - 0 + 1) + 0;
+        Random c = new Random();
+        int col=c.nextInt(3 - 0 + 1) + 0;
+        Case ca= new Case(row, col, v.get(val));
+        this.SetCaseAt(row, col, ca);
     }
 
-    @Override
+    @Override 
     public String toString(){
         String str="+---+---+---+---+\n";
-        int pos=0;
-        for (Case c: this.GetCases()){
-            if (pos==0|| pos==4 || pos==8|| pos ==12){
-                str+= "| "+c.toString()+" |";
-            }else if (pos ==3 || pos==7 || pos ==11|| pos==15){
-                str+=" "+c.toString()+" |\n"+"+---+---+---+---+\n";
-            }else{
+        for (ArrayList<Case> col: this.GetCases()){
+            str+="|";
+            for (Case c:col){
                 str+=" "+c.toString()+" |";
             }
-            pos++;
+            str+="\n"+"+---+---+---+---+\n";
         }
         return str;
     }
