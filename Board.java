@@ -80,26 +80,31 @@ public class Board extends Case {
 
     public void MoveBottom(){
 
-        for (int i=0; i<3;i++){
-            for (int j=0; j<4;j++){
-                Integer val = this.GetCaseAt(i, j).GetValue();
-                Integer val1 = this.GetCaseAt(i+1, j).GetValue();
-
-                if (val==val1){
-                    Case c = new Case(i+1, j, val+val1);
-                    this.SetCaseAt(i+1, j, c);
-                    Case cnul = new Case(i, j, 0);
-                    this.SetCaseAt(i, j, cnul);
-                }else if (val1==0){
-                    Case c = new Case(i+1, j, val);
-                    this.SetCaseAt(i+1, j, c);
-                    Case cnul = new Case(i, j, 0);
-                    this.SetCaseAt(i, j, cnul);
+        for (int z=0; z<4;z++){
+            for (int i=0; i<3;i++){
+                for (int j=0; j<4;j++){
+                    Integer val = this.GetCaseAt(i, j).GetValue();
+                    Integer val1 = this.GetCaseAt(i+1, j).GetValue();
+                    boolean s= this.GetCaseAt(i, j).Getset();
+                    boolean s1= this.GetCaseAt(i, j).Getset();
+    
+                    if (val==val1&& s==false&& s1==false){
+                        Case c = new Case(i+1, j, val+val1, true);
+                        this.SetCaseAt(i+1, j, c);
+                        Case cnul = new Case(i, j, 0, true);
+                        this.SetCaseAt(i, j, cnul);
+                    }else if (val1==0){
+                        Case c = new Case(i+1, j, val, true);
+                        this.SetCaseAt(i+1, j, c);
+                        Case cnul = new Case(i, j, 0, true);
+                        this.SetCaseAt(i, j, cnul);
+                    }
+    
                 }
-
             }
-        }
 
+        }
+        this.ResetSet();
     }
 
     public void MoveTop(){
@@ -112,6 +117,14 @@ public class Board extends Case {
 
     public void MoveRight(){
         
+    }
+
+    public void ResetSet(){
+        for (ArrayList<Case> c: this.GetCases()){
+            for (Case ca : c){
+                ca.Setset(false);
+            }
+        }
     }
 
     @Override 

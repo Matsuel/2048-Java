@@ -13,8 +13,10 @@ public class Test{
         b.SetCaseAt(c3.GetX(),c3.GetY(), c3);
 
         b.Spawn();
+        b.Spawn();
+        b.Spawn();
         System.out.println(b.toString());
-        b.MoveTop();
+        b.MoveBottom();
         System.out.println(b.toString());
         //System.out.println(b.GetEmpty());
     }

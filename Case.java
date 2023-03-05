@@ -2,6 +2,7 @@ public class Case {
     private int x;
     private int y;
     private int value;
+    private boolean set;
 
     public Case(){
         this.x=0;
@@ -10,6 +11,12 @@ public class Case {
     }
 
     public Case(int x, int y, int value){
+        this.value=value;
+        this.x=x;
+        this.y=y;
+    }
+
+    public Case(int x, int y, int value, boolean set){
         this.value=value;
         this.x=x;
         this.y=y;
@@ -37,6 +44,14 @@ public class Case {
 
     public void SetValue(int value){
         this.value=value;
+    }
+
+    public void Setset(boolean s){
+        this.set=s;
+    }
+
+    public boolean Getset(){
+        return this.set;
     }
 
     @Override
